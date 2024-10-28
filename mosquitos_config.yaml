@@ -1,0 +1,4 @@
+train: C:/Users/arg21/Documents/uvg/semestre8/P2_DS/train  # Ruta absoluta
+val: C:/Users/arg21/Documents/uvg/semestre8/P2_DS/val      # Ruta absoluta
+nc: 6                        # Número de clases (6 tipos de mosquitos)
+names: ['albopictus', 'culex', 'anopheles', 'culiseta', 'janopicus/koreicus', 'aegipty']

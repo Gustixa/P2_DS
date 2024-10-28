@@ -1,1 +1,7 @@
 myenv
+train/*
+val/*
+phase2_train_v0/*
+impl_ssd.ipynb
+carpeta_anotaciones/*
+extra/*
