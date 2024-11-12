@@ -4,7 +4,8 @@ from PIL import Image
 from torchvision import transforms
 from torchvision.models.detection import ssd300_vgg16
 import numpy as np
-
+import subprocess
+import matplotlib.pyplot as plt
 
 # Cargar modelo YOLOv5
 @st.cache_resource
@@ -37,12 +38,19 @@ if uploaded_file_yolo is not None:
     for i, (box, conf, cls) in enumerate(zip(results.xyxy[0], results.xyxyn[0][:, 4], results.xyxyn[0][:, 5])):
         st.write(f"Objeto {i+1}: Clase {int(cls)} con {conf:.2f} de confianza")
 
+    # results = yolo_model(image)
+    # results.render()  # Genera la imagen con los cuadros delimitadores
 
+    # # Mostrar la imagen con predicciones
+    # plt.imshow(results.ims[0])
+    # plt.axis('off')
+    # plt.show()
+    
 # Cargar el modelo SSD con los pesos guardados
 @st.cache_resource
 def load_ssd_model():
     model = ssd300_vgg16(pretrained=False)  # Inicializa el modelo
-    model.load_state_dict(torch.load("ssd_model.pth", map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load("models/SSD/ssd_model.pth", map_location=torch.device('cpu')))
     model.eval()  # Configura el modelo en modo evaluación
     return model
 
