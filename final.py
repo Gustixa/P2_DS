@@ -205,7 +205,7 @@ ssd_model = load_ssd_model()
 uploaded_file_ssd = st.file_uploader("Elige una imagen de mosquito para SSD...", type=["jpg", "jpeg", "png"], key="ssd")
 if uploaded_file_ssd is not None:
     image = Image.open(uploaded_file_ssd)
-    st.image(image, caption='Imagen Cargada', use_container_width=True)
+    st.image(image, caption='Imagen Cargada', use_column_width=True)
 
     # Preprocesar la imagen para el modelo SSD
     transform = transforms.Compose([
@@ -226,11 +226,28 @@ if uploaded_file_ssd is not None:
             st.write(f"📍 Objeto {i+1}: Clase {label} con {score:.2f} de confianza")
     st.markdown('</div>', unsafe_allow_html=True)
 
+        # Obtener resultados de la predicción
+    results = predict_image(yolo_model, image)
+    
+    # Calcular métricas para la imagen
+    precision, recall, map50, map = calculate_metrics(results)
+
+    # Crear un DataFrame para visualizar las métricas
+    metrics_df = pd.DataFrame({
+        'Metric': ['Precision', 'Recall', 'mAP@0.5', 'mAP@0.5:0.95'],
+        'Value': [precision, recall, map50, map]
+    })
+
+    # Mostrar las métricas como gráfica
+    st.markdown('<p class="model-title">Eficiencia del Modelo en la Imagen Cargada</p>', unsafe_allow_html=True)
+    fig = px.bar(metrics_df, x='Metric', y='Value', title="Métricas de Rendimiento del Modelo en Imagen")
+    st.plotly_chart(fig)
+
 # Cargar imagen para predicción
 uploaded_file = st.file_uploader("Elige una imagen de mosquito para evaluación...", type=["jpg", "jpeg", "png"])
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption='Imagen Cargada')
+    st.image(image, caption='Imagen Cargada', use_column_width=True)
 
     # Preprocesamiento para ambos modelos
     transform = transforms.Compose([transforms.Resize((300, 300)), transforms.ToTensor()])
