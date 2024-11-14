@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#3498db"
+backgroundColor = "#183458"  # Color de fondo deseado
+secondaryBackgroundColor = "#ffffff"
+textColor = "#FFFFFF"  # Blanco para el texto (mejor contraste con fondo oscuro)
+font = "sans serif"
