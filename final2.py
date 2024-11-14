@@ -71,7 +71,7 @@ def measure_inference_time(model, image_tensor):
 uploaded_file = st.file_uploader("Elige una imagen de mosquito para evaluación...", type=["jpg", "jpeg", "png"])
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption='Imagen Cargada', use_container_width=True)
+    st.image(image, caption='Imagen Cargada')
 
     # Preprocesamiento para ambos modelos
     transform = transforms.Compose([transforms.Resize((300, 300)), transforms.ToTensor()])
@@ -121,8 +121,8 @@ if uploaded_file_yolo is not None:
     img_with_boxes_yolo = np.squeeze(results.render())
 
     col1, col2 = st.columns(2)
-    col1.image(image, caption='Imagen Original', use_container_width=True)
-    col2.image(img_with_boxes_yolo, caption='Resultado YOLOv5', use_container_width=True)
+    col1.image(image, caption='Imagen Original')
+    col2.image(img_with_boxes_yolo, caption='Resultado YOLOv5')
 
     st.markdown('<div class="result-box">', unsafe_allow_html=True)
     st.markdown("🔍 **Predicciones YOLOv5:**", unsafe_allow_html=True)
@@ -134,7 +134,7 @@ if uploaded_file_yolo is not None:
 uploaded_file_ssd = st.file_uploader("Elige una imagen para SSD...", type=["jpg", "jpeg", "png"], key="ssd")
 if uploaded_file_ssd is not None:
     image = Image.open(uploaded_file_ssd)
-    st.image(image, caption='Imagen Cargada', use_container_width=True)
+    st.image(image, caption='Imagen Cargada')
 
     img_tensor = transform(image).unsqueeze(0)
     with torch.no_grad():
